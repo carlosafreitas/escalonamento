@@ -19,7 +19,7 @@ public class Processos {
     public Processos() {
     }
     
-    public int LerArq(){
+    public int lerArq(){
         int contador = 0;
         try{
            BufferedReader br = new BufferedReader(new FileReader("c:/arquivo.txt"));
@@ -36,5 +36,9 @@ public class Processos {
            ioe.printStackTrace();
         }
         return contador;
+    }
+    
+    public void calcFifo(){
+        
     }
 }
