@@ -5,6 +5,8 @@
  */
 package escalonamento;
 
+import java.util.Scanner;
+
 /**
  *
  * @author Carlos
@@ -17,6 +19,31 @@ public class Escalonamento {
     public static void main(String[] args) {
         // TODO code application logic here
         
+        Processos processos = new Processos();
+        if (processos.lerArq() > 0){
+            int n = 1;
+            while (0 == n){
+                System.out.println("Cálculo de escalonamneto:\n\n");
+                System.out.println("Por favor, selecione o processo:\n");
+                System.out.println("1 - FIFO");
+                System.out.println("2 - FPS\n");
+                System.out.println("0 - sair\n");
+                System.out.println("Por favor, selecione o processo:\n");
+                Scanner ler = new Scanner(System.in);
+                n = ler.nextInt();
+                switch (n){
+                    case 1 :
+                        processos.calcFifo();
+                        break;
+                    case 2 :
+                        processos.calcSJF();
+                        break;
+                
+                }
+            }
+        } else {
+            System.out.println("Nenhum preocesso lido!");
+        }
         
         
     }

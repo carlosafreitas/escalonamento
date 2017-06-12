@@ -49,6 +49,14 @@ public class Processos {
             turnAround =+ processo.getTempoCPU();
             processo.setTempoEspera(espera);
             processo.setTempoTurnaround(turnAround);
+            System.out.println("Processo: "+ processo.getTempoCPU()+
+                               " T : " + processo.getTempoTurnaround() +
+                               " S : " + processo.getTempoEspera()            
+            );
         }
+    }
+
+    void calcSJF() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
