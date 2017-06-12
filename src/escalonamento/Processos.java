@@ -39,6 +39,16 @@ public class Processos {
     }
     
     public void calcFifo(){
-        
+
+        int turnAround = 0;
+        int espera = 0;
+
+        for(int proc = 0; proc <= processos.size(); proc++){
+            Processo processo = processos.get(proc);
+            espera =+ turnAround;
+            turnAround =+ processo.getTempoCPU();
+            processo.setTempoEspera(espera);
+            processo.setTempoTurnaround(turnAround);
+        }
     }
 }
