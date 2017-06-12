@@ -7,6 +7,7 @@ package escalonamento;
 
 import java.util.ArrayList;
 import java.io.*;
+import java.util.Collections;
 
 /**
  *
@@ -42,21 +43,60 @@ public class Processos {
 
         int turnAround = 0;
         int espera = 0;
+        int ProcAnterior = 0;
+        int somaEspera = 0;
+        int somaTurnAround = 0;
 
-        for(int proc = 0; proc <= processos.size(); proc++){
+        for(int proc = 0; proc < processos.size(); proc++){
             Processo processo = processos.get(proc);
-            espera =+ turnAround;
-            turnAround =+ processo.getTempoCPU();
+            espera += ProcAnterior;
+            turnAround += processo.getTempoCPU();
             processo.setTempoEspera(espera);
             processo.setTempoTurnaround(turnAround);
+            ProcAnterior = processo.getTempoCPU();
+            
+            somaEspera += processo.getTempoEspera();
+            somaTurnAround += processo.getTempoTurnaround();
+            
             System.out.println("Processo: "+ processo.getTempoCPU()+
                                " T : " + processo.getTempoTurnaround() +
-                               " S : " + processo.getTempoEspera()            
+                               " E : " + processo.getTempoEspera()            
             );
         }
+        System.out.println("\nMedia dos tempos TurnAround: " + (float) somaTurnAround/processos.size());
+        System.out.println("\nMedia dos tempos Espera: " + (float) somaEspera/processos.size());
     }
 
     void calcSJF() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        //ArrayList sortProcessos = new ArrayList(processos);
+
+        
+        Collections.sort(processos);
+        int turnAround = 0;
+        int espera = 0;
+        int ProcAnterior = 0;
+        int somaEspera = 0;
+        int somaTurnAround = 0;
+
+        for(int proc = 0; proc < processos.size(); proc++){
+            Processo processo = processos.get(proc);
+            espera += ProcAnterior;
+            turnAround += processo.getTempoCPU();
+            processo.setTempoEspera(espera);
+            processo.setTempoTurnaround(turnAround);
+            ProcAnterior = processo.getTempoCPU();
+            
+            somaEspera += processo.getTempoEspera();
+            somaTurnAround += processo.getTempoTurnaround();
+            
+            System.out.println("Processo: "+ processo.getTempoCPU()+
+                               " T : " + processo.getTempoTurnaround() +
+                               " E : " + processo.getTempoEspera()            
+            );
+        }
+        System.out.println("\nMedia dos tempos TurnAround: " + (float) somaTurnAround/processos.size());
+        System.out.println("\nMedia dos tempos Espera: " + (float) somaEspera/processos.size());
+        
     }
 }
