@@ -22,13 +22,13 @@ public class Escalonamento {
         Processos processos = new Processos();
         if (processos.lerArq() > 0){
             int n = 1;
-            while (0 == n){
-                System.out.println("Cálculo de escalonamneto:\n\n");
+            while ( n > 0){
+                System.out.println("Cálculo de escalonamneto:\n");
                 System.out.println("Por favor, selecione o processo:\n");
                 System.out.println("1 - FIFO");
-                System.out.println("2 - FPS\n");
-                System.out.println("0 - sair\n");
-                System.out.println("Por favor, selecione o processo:\n");
+                System.out.println("2 - FPS");
+                System.out.println("0 - sair");
+                System.out.println("Por favor, selecione o processo: ");
                 Scanner ler = new Scanner(System.in);
                 n = ler.nextInt();
                 switch (n){

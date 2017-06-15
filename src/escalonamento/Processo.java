@@ -9,7 +9,7 @@ package escalonamento;
  *
  * @author Carlos
  */
-public class Processo {
+public class Processo implements Comparable<Processo>{
     private int tempoCPU;
     private int tempoTurnaround;
     private int tempoEspera;
@@ -36,6 +36,20 @@ public class Processo {
 
     public void setTempoEspera(int tempoEspera) {
         this.tempoEspera = tempoEspera;
+    }
+
+    @Override
+    public int compareTo(Processo t) {
+
+        if (this.tempoCPU < t.tempoCPU) {
+            return -1;
+        }
+        if (this.tempoCPU > t.tempoCPU) {
+            return 1;
+        }
+        return 0;
+ 
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
