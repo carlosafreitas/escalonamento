@@ -8,6 +8,7 @@ package escalonamento;
 import java.util.ArrayList;
 import java.io.*;
 import java.util.Collections;
+import java.util.Scanner;
 
 /**
  *
@@ -69,9 +70,6 @@ public class Processos {
 
     void calcSJF() {
 
-        //ArrayList sortProcessos = new ArrayList(processos);
-
-        
         Collections.sort(processos);
         int turnAround = 0;
         int espera = 0;
@@ -98,5 +96,76 @@ public class Processos {
         System.out.println("\nMedia dos tempos TurnAround: " + (float) somaTurnAround/processos.size());
         System.out.println("\nMedia dos tempos Espera: " + (float) somaEspera/processos.size());
         
+    }
+
+    void calcRoundRobin() {
+        int turnAround = 0;
+        int espera = 0;
+        int ProcAnterior = 0;
+        int somaEspera = 0;
+        int somaTurnAround = 0;
+        int quantum = 0;
+        int somaProcessos = 0;
+
+        System.out.println("Por favor, informe o valor do Quantum: ");
+        Scanner ler = new Scanner(System.in);
+        quantum = ler.nextInt();
+        
+        int[] arrayProcesso = new int[processos.size()];
+        for(int proc = 0; proc < processos.size(); proc++){
+            Processo processo = processos.get(proc);
+            arrayProcesso[proc] = processo.getTempoCPU();
+            somaProcessos += processo.getTempoCPU();
+            
+        }
+        
+        int contaProcessos = 0;
+        while(somaProcessos > contaProcessos){
+        
+            for(int proc = 0; proc < processos.size(); proc++){
+                Processo processo = processos.get(proc);
+                if (processo.getTempoTurnaround() == 0){
+                    int qteprocesso = arrayProcesso[proc];
+                    if (processo.getTempoEspera() == 0 && proc != 0){
+                        processo.setTempoEspera(contaProcessos);
+                        processos.set(proc, processo);
+                    } 
+
+                    if (qteprocesso > quantum){
+
+                        arrayProcesso[proc] = arrayProcesso[proc] - quantum;
+                        contaProcessos += quantum;
+
+                    } else if (qteprocesso == quantum){
+
+                        arrayProcesso[proc] = 0;
+                        contaProcessos += quantum;
+                        processo.setTempoTurnaround(contaProcessos);
+                        processos.set(proc, processo);
+
+                    } else if (qteprocesso < quantum){
+                        contaProcessos += qteprocesso;
+                        processo.setTempoTurnaround(contaProcessos);
+                        arrayProcesso[proc] = 0;
+                        processos.set(proc, processo);
+                    }
+
+                }
+            }
+            
+        }
+        
+        for(int proc = 0; proc < processos.size(); proc++){
+            Processo processo = processos.get(proc);
+            somaEspera += processo.getTempoEspera();
+            somaTurnAround += processo.getTempoTurnaround();
+
+            System.out.println("Processo: "+ processo.getTempoCPU()+
+                               " T : " + processo.getTempoTurnaround() +
+                               " E : " + processo.getTempoEspera()            
+            );
+        }
+        System.out.println("\nMedia dos tempos TurnAround: " + (float) somaTurnAround/processos.size());
+        System.out.println("\nMedia dos tempos Espera: " + (float) somaEspera/processos.size());
     }
 }

@@ -27,6 +27,7 @@ public class Escalonamento {
                 System.out.println("Por favor, selecione o processo:\n");
                 System.out.println("1 - FIFO");
                 System.out.println("2 - FPS");
+                System.out.println("3 - Round Robin");
                 System.out.println("0 - sair");
                 System.out.println("Por favor, selecione o processo: ");
                 Scanner ler = new Scanner(System.in);
@@ -37,6 +38,9 @@ public class Escalonamento {
                         break;
                     case 2 :
                         processos.calcSJF();
+                        break;
+                    case 3 :
+                        processos.calcRoundRobin();
                         break;
                 
                 }
